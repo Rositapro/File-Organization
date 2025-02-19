@@ -45,7 +45,7 @@ namespace File_Organization
             {
                 if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == newId)
                 {
-                    MessageBox.Show("El ID ya existe. Introduzca un ID único.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("The ID already exists. Enter a unique ID. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; 
                 }
             }
@@ -74,7 +74,7 @@ namespace File_Organization
                             dgvBook.Rows.Add(rowData);
                         }
                     }
-                    MessageBox.Show("Datos cargados correctamente.", "Cargar CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Data loaded successfully.", "Upload CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -87,35 +87,34 @@ namespace File_Organization
                 if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == searchId)
                 {
                     row.Selected = true;
-                    MessageBox.Show("Libro encontrado.", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Found book.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
-            MessageBox.Show("Libro no encontrado.", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("Found not book.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             string deleteId = txtID.Text;
             bool found = false;
-
             foreach (DataGridViewRow row in dgvBook.Rows)
             {
                 if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == deleteId)
                 {
                     dgvBook.Rows.Remove(row);
                     found = true;
-                    break; // Salimos del bucle después de eliminar el primer registro coincidente
+                    break; 
                 }
             }
 
             if (found)
             {
-                MessageBox.Show("Libro eliminado correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Successfully deleted book.", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("ID no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("ID not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -140,7 +139,7 @@ namespace File_Organization
                             }
                         }
                     }
-                    MessageBox.Show("Datos guardados en CSV correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Data saved in CSV successfully.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

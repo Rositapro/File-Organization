@@ -60,34 +60,34 @@ namespace File_Organization
             }
             if (!System.Text.RegularExpressions.Regex.IsMatch(id, @"^[EIGM]\d{3}$"))
             {
-                MessageBox.Show("El ID debe comenzar con E, I, G o M seguido de tres números (Ejemplo: E123).",
+                MessageBox.Show("The ID must begin with E, I, G or M followed by three numbers (Example: E123).",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (student.Any(stud => stud.CareerId == id))
             {
-                MessageBox.Show("El ID ya existe. Introduzca un ID único.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("The ID already exists. Enter a unique ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (name.Any(char.IsDigit)) 
             {
-                MessageBox.Show("El nombre no puede contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("The name cannot contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (career.Any(char.IsDigit))
             {
-                MessageBox.Show("La carrera no puede contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Race cannot contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (!int.TryParse(semester, out int semesterNumber) || semester.Length != 1 || semesterNumber < 1 || semesterNumber > 9)
             {
-                MessageBox.Show("El semestre solo puede contener un número entre 1 y 9.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Semester can only contain a number between 1 and 9", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (id[0] != career[0])
             {
-                MessageBox.Show($"La primera letra del ID ({id[0]}) debe coincidir con la primera letra de la carrera ({career[0]}).",
+                MessageBox.Show($"The first letter of the ID ({id[0]}) must match the first letter of the race ({career[0]}).",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -126,7 +126,7 @@ namespace File_Organization
                     }
                     else
                     {
-                        MessageBox.Show("Formato de archivo no compatible.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Unsupported file format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -136,7 +136,7 @@ namespace File_Organization
                     }
                     else
                     {
-                        MessageBox.Show("El archivo seleccionado está vacío o no contiene datos válidos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("The selected file is empty or does not contain valid data.", "Wearning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -167,26 +167,26 @@ namespace File_Organization
             string id = txtCareerID.Text.Trim();
             if (string.IsNullOrWhiteSpace(id))
             {
-                MessageBox.Show("Debe ingresar un ID para eliminar al empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("You must enter an ID to delete the employee.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var studentToRemove = student.FirstOrDefault(emp => emp.CareerId == id);
             if (studentToRemove != null)
             {
                 student.Remove(studentToRemove);
-                MessageBox.Show("Empleado eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Employee successfully removed.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 UpdateDataGridView();
                 Clear();
             }
             else
             {
-                MessageBox.Show("No se encontró un empleado con ese ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("An employee with that ID was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void btnSaveXml_Click(object sender, EventArgs e)
         {
-            GuardarEnXml();
-            AbrirCarpeta();
+            SaveInXml();
+            OpenFolder();
         }
         private void UpdateDataGridView()
         {
@@ -196,7 +196,7 @@ namespace File_Organization
                 dgvStudent.Rows.Add(stud.CareerId, stud.Name,stud.Career, stud.Semester);
             }
         }
-        private void GuardarEnXml()
+        private void SaveInXml()
         {
             if (!Directory.Exists(carpetaDestino))
             {
@@ -207,7 +207,7 @@ namespace File_Organization
             {
                 serializer.Serialize(writer, student);
             }
-            MessageBox.Show($"Datos guardados en XML\nUbicación: {archivoXml}");
+            MessageBox.Show($"Data saved in XML\nUbicación: {archivoXml}");
         }
         private bool CargarDesdeXml(string archivo)
         {
@@ -222,7 +222,7 @@ namespace File_Organization
 
             return student.Count > 0;
         }
-        private void AbrirCarpeta()
+        private void OpenFolder()
         {
             Process.Start("explorer.exe", carpetaDestino);
         }

@@ -39,24 +39,24 @@ namespace File_Organization
             string name = txtName.Text.Trim();
             if (!decimal.TryParse(txtPrice.Text.Trim(), out decimal price))
             {
-                MessageBox.Show("El precio debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("The price must be a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (!int.TryParse(txtStock.Text.Trim(), out int stock))
             {
-                MessageBox.Show("El stock debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Stock must be a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Todos los campos son obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("All fields are required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (products.Any(p => p.ID == id))
             {
-                MessageBox.Show("El ID ya existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("The ID already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace File_Organization
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Title = "Seleccionar archivo JSON";
+                openFileDialog.Title = "Select JSON file";
                 openFileDialog.Filter = "Archivos JSON (*.json)|*.json";
                 openFileDialog.Multiselect = false;
 
@@ -89,18 +89,18 @@ namespace File_Organization
             string searchId = txtID.Text.Trim();
             if (string.IsNullOrWhiteSpace(searchId))
             {
-                MessageBox.Show("Ingrese un ID para buscar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Enter an ID to search.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var producto = products.FirstOrDefault(p => p.ID == searchId);
-            if (producto != null)
+            var product = products.FirstOrDefault(p => p.ID == searchId);
+            if (product != null)
             {
-                MessageBox.Show($"Producto encontrado:\n\nID: {producto.ID}\nNombre: {producto.Name}\nPrecio: {producto.Price}\nStock: {producto.Stock}", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Product found:\n\nID: {product.ID}\nName: {product.Name}\nPrice: {product.Price}\nStock: {product.Stock}", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Producto no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Product not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -109,7 +109,7 @@ namespace File_Organization
             string deleteId = txtID.Text.Trim();
             if (string.IsNullOrWhiteSpace(deleteId))
             {
-                MessageBox.Show("Ingrese un ID para eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Enter an ID to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -118,11 +118,11 @@ namespace File_Organization
             {
                 products.Remove(producto);
                 UpdateDataGridView();
-                MessageBox.Show("Producto eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Product disposed correctly.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Producto no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Product not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -130,7 +130,7 @@ namespace File_Organization
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.Title = "Guardar archivo JSON";
+                saveFileDialog.Title = "Save JSON file";
                 saveFileDialog.Filter = "Archivos JSON (*.json)|*.json";
                 saveFileDialog.FileName = "products.json"; // Nombre sugerido
 
@@ -146,7 +146,7 @@ namespace File_Organization
             string json = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(jsonFilePath, json);
 
-            MessageBox.Show($"Datos guardados en:\n{jsonFilePath}", "Guardado Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Data saved in:\n{jsonFilePath}", "Saved Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Abre el explorador de archivos en la ubicación del archivo guardado
             string folderPath = Path.GetDirectoryName(jsonFilePath);
